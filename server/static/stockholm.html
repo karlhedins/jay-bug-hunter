@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://3d.io/releases/3dio-js/1.x.x/3dio.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+
+    <script src="/easyrtc/easyrtc.js"></script>
+    <script src="/build.js"></script>
+    <script>window.NAF || document.write('<script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js">\x3C/script>')</script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
+    <script src="/js/spawn-in-circle.component.js"></script>
+    <script>
+    // Define custom schema for syncing avatar
+NAF.schemas.add({
+  template: '#avatar-template',
+  components: ['position', 'rotation']
+})
+</script>
+  </head>
+  <body>
+        <a-scene physics="debug: false" physics="friction: 0.1; restitution: 2; gravity: -5" networked-scene="
+          room: office;
+          debug: true;
+          adapter: easyrtc;
+          audio: false;
+        ">
+          <a-assets>
+            <img id="sky" src="/img/empire_low.jpg">
+            <a-asset-item id="raccoon-obj" src="/assets/Raccoon_Blocks/model.obj"></a-asset-item>
+            <a-asset-item id="raccoon-mtl" src="/assets/Raccoon_Blocks/materials.mtl"></a-asset-item>
+
+            <!-- Avatar -->
+            <script id="avatar-template" type="text/html">
+              <a-entity class="avatar" networked-audio-source>
+              <a-entity class="heads">
+                <a-entity obj-model="obj: #raccoon-obj; mtl: #raccoon-mtl" scale="5 5 5" />
+              </a-entity>
+            </script>
+          </a-assets>
+          <a-sky src="#sky"></a-sky>
+          <a-entity networked="template:#avatar-template;showLocalTemplate:false;" spawn-in-circle="radius:2;" camera="userHeight: 2" universal-controls="movementEasing: 15; movementAcceleration: 200; fly:true" kinematic-body="" jump-ability="playerHeight: 3; maxJumps:5; distance: 5;" position="0 5 0" gamepad-controls="" keyboard-controls="" touch-controls="" hmd-controls="" mouse-controls=""></a-entity>
+      <a-entity scale="3 3 3" class="io3d-scene" rotation="0 180 0" io3d-uuidd="dcb1e463-4f19-437f-aa20-56118f4ed119">
+        <a-entity id="wall-container" position="0 1.5 0" visible="false">
+          <a-box static-body width="25.479995932550388" geometry="width:25.48" height="3" depth="0.1" position="4.61 0 -5.288" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="18.08644272798944" geometry="" height="3" depth="0.1" position="-4.39 0 -18.368" rotation="0 177.58237581177696 0" material="color:red"></a-box>
+          <a-box static-body width="19.68" geometry="" height="3" depth="0.1" position="-13.2 0 -8.926" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="0.97" geometry="" height="3" depth="0.1" position="-12.694 0 0.496" rotation="0 360 0" material="color:red"></a-box>
+          <a-box static-body width="1.3202769123128506" geometry="" height="3" depth="0.1" position="-12.230000000000002 0 0.670868672681568" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="0.5673000344143073" geometry="" height="3" depth="0.1" position="-12.230000000000002 0 1.7411455849944186" rotation="0 360 0" material="color:red"></a-box>
+          <a-box static-body width="4.423498837727475" geometry="" height="3" depth="0.1" position="-11.557 0 4.056" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="5.425543117980355" geometry="width:5.785543117980355" height="3" depth="0.1" position="-8.666 0 5.872" material="color:red"></a-box>
+          <a-box static-body width="1.8341477554409717" geometry="" height="3" depth="0.1" position="-6.103 0 6.112" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="5.390810767622899" geometry="depth:0.28;width:6.750810767622899" height="3" depth="0.1" position="-4.076 0 5.213" rotation="0 540 0" material="color:red"></a-box>
+          <a-box static-body width="2.11" geometry="width:2.48" height="3" depth="0.1" position="-0.746 0 6.352" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="5.35614435371756" geometry="width:5.356" height="3" depth="0.1" position="1.864 0 7.251" material="color:red"></a-box>
+
+          <a-box static-body width="8.287685763796219" geometry="width:7.308000000000001" height="3" depth="0.1" position="-7.402 0 0.579" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="0.678740813946269" geometry="depth:0.23;width:0.759" height="3" depth="0.1" position="-7.797 0 4.116" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.9999999999999987" geometry="width:2" height="3" depth="0.1" position="-8.179 0 2.504" rotation="0 90 0" material="color:red"></a-box>
+
+          <a-box static-body width="0.6814231633969605" geometry="" height="3" depth="0.1" position="-7.849 0 0.987" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.813106086562769" geometry="width:7.103" height="3" depth="0.1" position="-8.181 0 0.557" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="5.700000000000005" geometry="depth:0.23;width:3.9200000000000044" height="3" depth="0.1" position="-11.247 0 -2.922" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="6.15" geometry="width:2.37" height="3" depth="0.1" position="-5.286 0 -2.301" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="4.4" geometry="depth:0.42000000000000004;width:4.660000000000001" height="3" depth="0.1" position="-3.009 0 2.696" material="color:red"></a-box>
+          <a-box static-body width="6.05" geometry="" height="3" depth="0.1" position="-3.45 0 -0.464" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="4.159798273735122" geometry="" height="3" depth="0.1" position="2.623 0 -6.866" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.600000000000001" geometry="depth:0.29000000000000004;width:2.620000000000001" height="3" depth="0.1" position="0.508 0 -5.63" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="4.009798273735121" geometry="width:4.1497982737351204;depth:0.3" height="3" depth="0.1" position="2.525 0 -3.215" material="color:red"></a-box>
+          <a-box static-body width="1.6999999999999993" geometry="width:2.44" height="3" depth="0.1" position="-4.095 0 -3.423" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.7000000000000015" geometry="" height="3" depth="0.1" position="-4.305 0 -2.3" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.7000000000000015" geometry="depth:0.16;width:1.7" height="3" depth="0.1" position="-4.308 0 -1.292" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.7000000000000015" geometry="depth:0.21000000000000002;width:1.7" height="3" depth="0.1" position="-4.27 0 -0.132" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.7000000000000006" geometry="width:1.7;depth:0.2" height="3" depth="0.1" position="-4.265 0 1.695" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:0.8" height="3" depth="0.1" position="2.154 -0.741 2.753" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:0.8" height="3" depth="0.1" position="2.154 -0.753 -0.267" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.08;height:5.52" height="3" depth="0.1" position="2.154 -0.8 6.697" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.08;height:2.7499999999999996" height="3" depth="0.1" position="-0.85 -0.567 -0.228" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:0.8" height="3" depth="0.1" position="-9.815 -0.8 -0.631" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:0.8" height="3" depth="0.1" position="-9.815 -0.8 3.554" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:0.9000000000000001;height:4.39" height="3" depth="0.1" position="-11.208 -0.8 -6.499" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.56;height:3.51" height="3" depth="0.1" position="-4.264 -0.8 -16.595" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1;height:1" height="3" depth="0.1" position="-10.952 -1.122 -16.595" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1;height:1" height="3" depth="0.1" position="-11.348 -1.122 -14.807" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.56;height:3.51" height="3" depth="0.1" position="-0.375 -0.8 -16.595" rotation="90 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.56;height:3.51" height="3" depth="0.1" position="2.966 -0.8 -16.098" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.56;height:3.51" height="3" depth="0.1" position="2.966 -0.8 -12.441" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.56;height:3.51" height="3" depth="0.1" position="2.966 -0.8 -8.691" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:0.7;height:4.37" height="3" depth="0.1" position="-4.357 -0.8 -11.134" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="width:1.49;height:1.53" height="3" depth="0.1" position="2.513 -0.8 -5.065" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="3.75" geometry="depth:1.05;width:5.75;height:0.79" height="3" depth="0.1" position="-2.338 -1.111 -0.278" rotation="90 180 90" material="color:red"></a-box><a-box static-body width="3.75" geometry="width:3.02;height:0.79;depth:1.05" height="3" depth="0.1" position="-0.918 -1.111 -0.046" rotation="90 180 90" material="color:red"></a-box>
+          <a-box static-body width="5.55" geometry="depth:0.32" height="3" depth="0.1" position="-2.805 0 -0.392" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="1.2" geometry="" height="3" depth="0.1" position="-3.3 0 -3.05" material="color:red"></a-box>
+          <a-box static-body width="6.1" geometry="width:6.369999999999999;depth:0.22" height="3" depth="0.1" position="-4.454 0 -12.58" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="3.3000000000000025" geometry="depth:0.25;width:1.74" height="3" depth="0.1" position="-7.5 0 -11.676" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="1.7" geometry="" height="3" depth="0.1" position="-6.71 0 -9.6" material="color:red"></a-box>
+          <a-box static-body width="4.05" geometry="" height="3" depth="0.1" position="-6.06 0 -7.335" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="4.9" geometry="width:5.090000000000001" height="3" depth="0.1" position="-3.487 0 -5.334" material="color:red"></a-box>
+          <a-box static-body width="5.099999999999998" geometry="width:2.0700000000000003;depth:0.23" height="3" depth="0.1" position="-1.4 0 -11.483" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="2" geometry="" height="3" depth="0.1" position="-0.891 0 -6.21" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="1.55" geometry="width:2.04" height="3" depth="0.1" position="-0.896 0 -8.088" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="0.3" geometry="" height="3" depth="0.1" position="-1 0 -9.089" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="2.1" geometry="" height="3" depth="0.1" position="-4.759 0 -8.351" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="2" geometry="" height="3" depth="0.1" position="-3.4 0 -6.287" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="2.3999999999999995" geometry="width:2.4" height="3" depth="0.1" position="-2.271 0 -9.123" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.45" geometry="" height="3" depth="0.1" position="-1.1 0 -7.3" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.35" geometry="" height="3" depth="0.1" position="-1.55 0 -7.55" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="1.75" geometry="" height="3" depth="0.1" position="-1.45 0 -7.3" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="2.05" geometry="width:2.44" height="3" depth="0.1" position="-7.557 0 -8.462" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="1.3000000000000016" geometry="width:1.5300000000000016" height="3" depth="0.1" position="-6.801 0 -7.249" material="color:red"></a-box>
+          <a-box static-body width="0.2500000000000018" geometry="" height="3" depth="0.1" position="-4.450000000000008 0 -12.550000000000002" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="1.2499999999999893" geometry="" height="3" depth="0.1" position="-4.449999999999995 0 -12.200000000000001" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.25000000000000533" geometry="" height="3" depth="0.1" position="-5.599999999999994 0 -12.549999999999997" rotation="0 270 0" material="color:red"></a-box>
+          <a-box static-body width="0.5878166846796261" geometry="width:0.588" height="3" depth="0.1" position="-5.786 0 -9.694" rotation="-0.057295779513082325 -133.2126873679164 -0.057295779513082325" material="color:red"></a-box>
+          <a-box static-body width="0.48862613414601147" geometry="width:1.7986261341460115" height="3" depth="0.1" position="-3.712 0 -9.716" rotation="0 133.79 0" material="color:red"></a-box>
+          <a-box static-body width="0.48190988252744965" geometry="" height="3" depth="0.1" position="-3.983 0 -9.945" rotation="0 153.05 0" material="color:red"></a-box>
+          <a-box static-body width="0.428432510375547" geometry="" height="3" depth="0.1" position="-4.334 0 -10.071" rotation="0 172.16 0" material="color:red"></a-box>
+          <a-box static-body width="0.2976961534695243" geometry="" height="3" depth="0.1" position="-4.703 0 -10.135" rotation="0 184.89 0" material="color:red"></a-box>
+          <a-box static-body width="0.338425353537561" geometry="" height="3" depth="0.1" position="-4.954 0 -10.144" rotation="0 195.41 0" material="color:red"></a-box>
+          <a-box static-body width="0.34052885971695745" geometry="" height="3" depth="0.1" position="-5.219 0 -10.087" rotation="0 210.78 0" material="color:red"></a-box>
+          <a-box static-body width="0.46157741032053956" geometry="" height="3" depth="0.1" position="-5.469 0 -9.952" rotation="0 223.01 0" material="color:red"></a-box>
+          <a-box static-body width="0.4" geometry="depth:0.41" height="3" depth="0.1" position="-8.384 0 -5.454" rotation="0 180 0" material="color:red"></a-box><a-box static-body width="0.4" geometry="depth:0.41" height="3" depth="0.1" position="-5.919 0 -0.156" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.4" geometry="depth:0.41" height="3" depth="0.1" position="-1.033 0 0.044" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="depth:0.38" height="3" depth="0.1" position="-2.121 0 -14.199" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="depth:0.41000000000000003" height="3" depth="0.1" position="-6.536 -0.208 -14.117" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="4.662979104231606" geometry="" height="3" depth="0.1" position="-11.547 0 -0.476" rotation="0 90 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="" height="3" depth="0.1" position="-11.962699965585694 0 0.033936160584937924" rotation="0 450 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="width:0.94" height="3" depth="0.1" position="-5.44 0 -0.096" rotation="0 450 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="depth:0.45" height="3" depth="0.1" position="-11.72 0 -5.417" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="depth:0.5" height="3" depth="0.1" position="-11.736 0 -7.412" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="0.35" geometry="" height="3" depth="0.1" position="-5.294 0 1.487" rotation="0 450 0" material="color:red"></a-box>
+          <a-box static-body width="4.062699965585695" geometry="depth:0.21000000000000002;width:0.7929999999999997" height="3" depth="0.1" position="-7.746 0 -2.968" rotation="0 180 0" material="color:red"></a-box>
+          <a-box static-body width="1.83414775544097" geometry="width:30;height:30; depth:0.98" height="3" depth="0.1" position="-2.018 1.219 -5.897" rotation="90 0 0" material="color:red" visible="false"></a-box>
+          <a-box static-body width="1.83414775544097" geometry="width:30;height:30; depth:0.98" height="3" depth="0.1" position="-2.018 -1.885 -5.897" rotation="90 0 0" material="color:red" visible="false"></a-box>
+        </a-entity>
+        <a-entity id="office_model" class="io3d-level" io3d-uuid="95365761-4918-4b25-b74d-490f29e72a94">
+          <!-- <a-entity visible="false" io3d-data3d="key:a7a436f3-df27-43f9-91b0-14025f19cedc/processing/2017-12-19_14-28-26_oY4NFk/lighting.gz.data3d.buffer;lightMapIntensity:1;lightMapExposure:0.5" shadow="cast:false"></a-entity> -->
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:25.479995932550388" visible="false" position="4.60979827373512 0 7.4758522445590305" rotation="0 90 0" io3d-uuid="9f51984e-fcf8-402d-9a33-5b7b3fc0ffe8">
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="0.95 0.05 0" io3d-uuid="a32016c6-15d6-4f62-867c-5aa0dcb210f4"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="4 0.05 0" io3d-uuid="b6395660-aac9-469b-aa7f-c187e16b7e6b"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="7.25 0.05 0" io3d-uuid="3a84d60a-35d7-458d-bc64-82eda36c0a16"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="11.1 0.05 0" io3d-uuid="3933274c-903c-430f-88c8-551ee7f6b3d2"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="14.8 0.05 0" io3d-uuid="6bcacdd5-11dc-4b94-a1ca-78c15dbd744e"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="19 0.05 0" io3d-uuid="53220ab0-df2d-440a-9a75-369ef28e2f5d"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.4" visible="false" position="21.6 0.05 0" io3d-uuid="e09514ab-116a-46af-9aac-505cc1eb4169"></a-entity>
+          </a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:18.08644272798944" visible="false" position="4.859798273735122 0 -17.996413763120035" rotation="0 177.58237581177696 0" io3d-uuid="45e0cb59-c7e9-4dbe-969a-0ee6c102829d">
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.6" visible="false" position="1 0.05 0" io3d-uuid="5e097bdd-0b35-4f40-aaa6-97415e3acbaa"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.6" visible="false" position="4.2 0.05 0" io3d-uuid="857aa450-2404-40a7-9f9e-b3a8d31c8978"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.6" visible="false" position="8.1 0.05 0" io3d-uuid="c1adf134-9cb3-4338-9156-e485adbb1cdf"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.6" visible="false" position="11.2 0.05 0" io3d-uuid="b232487f-23ce-4968-9f6d-9d504fea8e42"></a-entity>
+            <a-entity io3d-window="material_glass:glass;h:2.25;l:2.6" visible="false" position="15.1 0.05 0" io3d-uuid="118b700f-5b9f-4b7b-bfd8-965bb02ef823"></a-entity>
+          </a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:19.68" visible="false" position="-13.2 0 -19.009131327318432" rotation="0 270 0" io3d-uuid="671a6b77-941a-4e63-a2dc-e614811192a4"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.97;frontHasBase:true;backHasBase:true" visible="false" position="-13.200000000000003 0 0.4208686726815678" rotation="0 360 0" io3d-uuid="18bf4222-f42e-4b19-acb4-662cd5d105fe"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:1.3202769123128506;frontHasBase:true;backHasBase:true" visible="false" position="-12.230000000000002 0 0.670868672681568" rotation="0 270 0" io3d-uuid="f025b435-e7cf-4dfa-9b99-a1c99b783a85"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.5673000344143073;frontHasBase:true;backHasBase:true" visible="false" position="-12.230000000000002 0 1.7411455849944186" rotation="0 360 0" io3d-uuid="2ad36d87-e15d-4fdb-a774-e7f5bdc05a79"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:4.423498837727475;frontHasBase:true;backHasBase:true" visible="false" position="-11.662699965585693 0 6.164644422721893" rotation="0 90 0" io3d-uuid="55e67a4c-b83a-4371-a293-1f9804e8d268"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:5.425543117980355;frontHasBase:true;backHasBase:true" visible="false" position="-11.562699965585693 0 5.914644422721893" io3d-uuid="fdf7ee98-3aeb-4f46-b9e7-87d51531cef8"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:1.8341477554409717;frontHasBase:true;backHasBase:true" visible="false" position="-5.887156847605338 0 5.365852244559028" rotation="0 270 0" io3d-uuid="aa19d280-427e-4c84-a99b-006a1d3ebb35"></a-entity>
+          <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:5.390810767622899;frontHasBase:true;backHasBase:true" visible="false" position="-0.7463460799824394 0 5.365852244559029" rotation="0 540 0" io3d-uuid="0c4fadbe-1ec8-455f-b58a-a6e3bd76961f">
+            <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1;w:0.25;doorAngle:0" visible="false" position="0.9 0 0" io3d-uuid="3b99a674-bc90-4412-8fe9-61854ae533cf"></a-entity>
+          </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:2.11;frontHasBase:true;backHasBase:true" visible="false" position="-0.7463460799824393 0 5.365852244559029" rotation="0 270 0" io3d-uuid="22c865a4-a53c-4bc0-b724-2e8b6d41eca7"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:5.35614435371756;frontHasBase:true;backHasBase:true" visible="false" position="-0.7463460799824396 0 7.225852244559029" io3d-uuid="f1e9ac1c-784a-438f-9e3e-6ee4479e1f89"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:1.2628431523946535;frontHasBase:true;backHasBase:true" visible="false" position="-6.137156847605346 0 5.265852244559028" rotation="0 180 0" io3d-uuid="89e1c161-dd97-4338-b24e-5fba8d0ad1d8"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:8.287685763796219;frontHasBase:true;backHasBase:true" visible="false" position="-7.499999999999999 0 5.2658522445590314" rotation="0 90 0" io3d-uuid="dfdddc3f-92c7-4b07-89b9-91f0dce9901f">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.1;hinge:left;side:front;doorType:opening" visible="false" position="0.15 0 0" io3d-uuid="ae59c19c-ff02-4941-ab6f-7d66f69ba441"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.75;w:0.1;frameLength:0;doorType:slidingDoor;doorAngle:0" visible="false" position="1.6 0 0" io3d-uuid="14bf4f68-d893-473c-91b5-b86232c00ee6"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.95;w:0.1;frameLength:0;doorType:slidingDoor;doorAngle:0" visible="false" position="4.4 0 0" io3d-uuid="80b6339f-c6b0-4b7a-94df-2d9ad0a1a32c"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.75;w:0.1;frameLength:0;doorType:slidingDoor;side:front;doorAngle:0" visible="false" position="2.35 0 0" io3d-uuid="02d016e8-5d21-4db9-8c5e-ffcbf7e1fcf2"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.95;w:0.1;frameLength:0;doorType:slidingDoor;side:front;doorAngle:0" visible="false" position="5.35 0 0" io3d-uuid="e500820d-5350-4056-afb6-1850780a2e08"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.95;w:0.1;frameLength:0;doorType:slidingDoor;doorAngle:0" visible="false" position="6.3 0 0" io3d-uuid="999343c6-cce9-44ca-a0b8-a3df44ed86bb"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.95;w:0.1;frameLength:0;doorType:slidingDoor;side:front;doorAngle:0" visible="false" position="7.25 0 0" io3d-uuid="dfb87eed-9d62-4a66-916e-19d626593c69"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:0.678740813946269;frontHasBase:true;backHasBase:true" visible="false" position="-7.499999999999997 0 4.115852244559034" rotation="0 180 0" io3d-uuid="2aad2942-475e-4900-af11-3691d2030cb5"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.9999999999999987;frontHasBase:true;backHasBase:true" visible="false" position="-8.178740813946266 0 4.015852244559029" rotation="0 90 0" io3d-uuid="e53e47f0-604d-48c2-a08b-2897acd3f5ff"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:0.5787408139462693;frontHasBase:true;backHasBase:true" visible="false" position="-8.078740813946267 0 2.01585224455903" rotation="0 360 0" io3d-uuid="e5ddda95-6044-40f2-96c2-ee55e24da6be"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:0.6814231633969605;frontHasBase:true;backHasBase:true" visible="false" position="-7.499999999999998 0 0.9912725673255817" rotation="0 180 0" io3d-uuid="7913ab0e-812f-4d57-a342-07526be8f62a"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:3.813106086562769;frontHasBase:true;backHasBase:true" visible="false" position="-8.181423163396959 0 0.891272567325582" rotation="0 90 0" io3d-uuid="1185bab3-33dd-4df2-b19b-0ef080ada6eb"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:5.700000000000005;frontHasBase:true;backHasBase:true" visible="false" position="-7.499999999999998 0 -2.921833519237187" rotation="0 180 0" io3d-uuid="ca49e8fe-5298-4629-9043-4c0b10b1628d">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.1;side:front;doorType:opening" visible="false" position="0.8 0 0" io3d-uuid="d7441d8a-22bc-4953-81b4-4d6f1f252dbc"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.1;hinge:left;doorAngle:0" visible="false" position="4.7 0 0" io3d-uuid="6cbcdc32-24a4-4be0-b067-eb9fd79d8673"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:2.5371568476053388;frontHasBase:true;backHasBase:true" visible="false" position="-5.887156847605341 0 6.95" io3d-uuid="2df30a6f-db96-47a6-9168-b1dfd7eb3260"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:1.83414775544097;frontHasBase:true;backHasBase:true" visible="false" position="-3.350000000000002 0 7.199999999999998" rotation="0 90 0" io3d-uuid="50747ed0-2606-4163-afc5-57b7fa10e53c">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1;w:0.25;doorType:slidingDoor;doorAngle:0" visible="false" position="0.55 0 0" io3d-uuid="2bdc13a5-b978-4f75-ad52-405e32db2437"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:6.15;frontHasBase:true;backHasBase:true" visible="false" position="-5.15 0 -3.4" rotation="0 270 0" io3d-uuid="cdaba1e4-d829-43c4-8351-c438ff89feb8">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.15;hinge:left;side:front;doorType:opening" visible="false" position="3.85 0 0" io3d-uuid="db9a118a-1ae8-4e2c-991b-d6c210cb089b"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.85;w:0.15;side:front;doorAngle:0" visible="false" position="1.1 0 0" io3d-uuid="230e6c19-94a0-4dc7-9c3e-b91270a808ba"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.7;w:0.15;side:front;doorType:opening" visible="false" position="2.2 0 0" io3d-uuid="f9728542-262d-4fc0-a25b-8002e98112d5"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:0.7;w:0.15;side:front;doorType:opening" visible="false" position="5.15 0 0" io3d-uuid="c3963a94-095b-413a-86ff-2f20cbcc6d46"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:4.4;frontHasBase:true;backHasBase:true" visible="false" position="-5.150000000000001 0 2.65" io3d-uuid="0493de18-8346-44c9-b379-318c34d6d5bb">
+          <a-entity io3d-window="material_glass:glass;l:1.15" visible="false" position="3.2 0.8 0" io3d-uuid="ddeb5ee6-884f-4cce-85c5-110071661be2"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:6.05;frontHasBase:true;backHasBase:true" visible="false" position="-3.4499999999999997 0 2.6499999999999995" rotation="0 90 0" io3d-uuid="cc642772-933d-477f-97aa-63f00b4d701a"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:4.159798273735122;frontHasBase:true;backHasBase:true" visible="false" position="4.609798273735122 0 -6.75" rotation="0 180 0" io3d-uuid="d3180372-3882-4607-bae6-9061f11f3ac1"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:3.600000000000001;frontHasBase:true;backHasBase:true" visible="false" position="0.6000000000000003 0 -6.750000000000001" rotation="0 270 0" io3d-uuid="ea17534b-e123-47e7-b873-a0762c4f2b36">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.15;hinge:left;doorType:opening" visible="false" position="2.45 0 0" io3d-uuid="49d9949b-85c6-49b3-bcec-8c6fee956ef6"></a-entity>
+          <a-entity io3d-window="material_glass:glass;h:1.95;l:2.4" visible="false" position="0 0.05 0" io3d-uuid="904e285c-4938-41ef-b1f7-c96012f50113"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:4.009798273735121;frontHasBase:true;backHasBase:true" visible="false" position="0.5999999999999996 0 -3.3" io3d-uuid="23cc1ab5-d3d7-4c73-b74f-aaaefd55a740"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.05;l:1.6999999999999993;frontHasBase:true;backHasBase:true" visible="false" position="-3.45 0 -3.35" rotation="0 180 0" io3d-uuid="1753654a-8eb6-4733-b123-5d54a15c98d7">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1.6;doorType:doubleSwing;side:front;doorAngle:0" visible="false" position="0.05 0 0" io3d-uuid="09c4d9bd-44e1-47ca-9ca0-a5378562d306"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.7000000000000015;frontHasBase:true;backHasBase:true" visible="false" position="-3.449999999999999 0 -2.2999999999999994" rotation="0 180 0" io3d-uuid="37512196-c442-41ed-8a64-b141f22deb77"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.7000000000000015;frontHasBase:true;backHasBase:true" visible="false" position="-3.45 0 -1.25" rotation="0 180 0" io3d-uuid="ae75c3ac-0821-480c-b3aa-9e4b27839a17"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.7000000000000015;frontHasBase:true;backHasBase:true" visible="false" position="-3.4499999999999997 0 -0.10000000000000002" rotation="0 180 0" io3d-uuid="6482a2ad-af8c-4085-9cf1-c41fcbe1173c"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.7000000000000006;frontHasBase:true;backHasBase:true" visible="false" position="-3.4499999999999997 0 1.7000000000000004" rotation="0 180 0" io3d-uuid="0a7fb386-3ba7-4df1-b090-b7792001676b"></a-entity>
+        <!-- <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:3.75;frontHasBase:true;backHasBase:true" visible="false" position="0.45 0 -3.05" rotation="0 180 0" io3d-uuid="67fff27c-2301-4d39-8639-6b946a9e3755"></a-entity> -->
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:5.55;frontHasBase:true;backHasBase:true" visible="false" position="-2.7 0 -2.9" rotation="0 270 0" io3d-uuid="2567de6f-e226-4f90-a6eb-af89b52bb570"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:1.2;frontHasBase:true;backHasBase:true" visible="false" position="-3.3 0 -3.05" io3d-uuid="75d8c8c6-8015-4dd1-8a15-da1e2883f47e"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:6.1;frontHasBase:true;backHasBase:true" visible="false" position="-1.4000000000000001 0 -12.55" rotation="0 180 0" io3d-uuid="b2052afe-92ee-43a5-ab28-1e82667c371f"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:3.3000000000000025;frontHasBase:true;backHasBase:true" visible="false" position="-7.5 0 -12.650000000000004" rotation="0 270 0" io3d-uuid="a02aa361-7182-4710-b511-5328a498d45f">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.1;hinge:left;doorType:opening" visible="false" position="2.000000000000002 0 0" io3d-uuid="1a847d80-7ac7-452e-8a53-83ce93ddbfde"></a-entity>
+          <a-entity io3d-window="material_glass:glass;h:1.95;l:1.8" visible="false" position="0.15000000000000213 0.05 0" io3d-uuid="d04da7d4-ca08-4fc7-a6a3-3b3483441cb1"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:1.7;frontHasBase:true;backHasBase:true" visible="false" position="-7.5 0 -9.6" io3d-uuid="beb9f33a-c660-4aa0-95ab-dbc29eee079c"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:4.05;frontHasBase:true;backHasBase:true" visible="false" position="-5.8 0 -9.35" rotation="0 270 0" io3d-uuid="aad1aa58-abe2-4bce-8c02-36eb6172ba71"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:4.9;frontHasBase:true;backHasBase:true" visible="false" position="-5.8 0 -5.55" io3d-uuid="badd34ff-8320-486a-bd68-b139c84c6aae">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1;w:0.25;hinge:left;doorAngle:0" visible="false" position="3.1500000000000004 0 0" io3d-uuid="054de297-7cef-4664-8bc7-be765d432120"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:5.099999999999998;frontHasBase:true;backHasBase:true" visible="false" position="-1.4 0 -7.5500000000000025" rotation="0 90 0" io3d-uuid="265c52f4-80d5-4348-907e-8a148aa9f86a">
+          <a-entity io3d-window="material_glass:glass;h:1.95;l:1.7;side:front" visible="false" position="3.2499999999999982 0.05 0" io3d-uuid="faaa13e4-f3e9-412f-8347-9ccc227270ed"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;w:0.1;doorType:opening" visible="false" position="1.8999999999999986 0 0" io3d-uuid="fd8cc168-5b51-4363-946e-b695c3c1c3e1"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.2;l:2;frontHasBase:true;backHasBase:true" visible="false" position="-1.1 0 -5.55" rotation="0 90 0" io3d-uuid="13080fa9-78fb-453a-82dd-0690d0c8e17a"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.55;frontHasBase:true;backHasBase:true" visible="false" position="-1 0 -7.55" rotation="0 90 0" io3d-uuid="3c8ad7ab-829d-49b9-a1de-a0289ad2d448"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:0.3;frontHasBase:true;backHasBase:true" visible="false" position="-1 0 -9" rotation="0 180 0" io3d-uuid="a060081d-b5f8-4009-9913-7a67c6042c48"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:2.1;frontHasBase:true;backHasBase:true" visible="false" position="-1.4 0 -8.9" rotation="0 180 0" io3d-uuid="fb712bd8-fada-4c21-8c83-0b4efb6700be">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1;w:0.25;doorAngle:0" visible="false" position="0.25 0 0" io3d-uuid="4a1cb868-8a23-430e-887a-2abcd8d845b6"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:2;frontHasBase:true;backHasBase:true" visible="false" position="-3.4 0 -5.55" rotation="0 90 0" io3d-uuid="a6934899-2d79-43aa-bed7-e75836d5ec48">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1;w:0.25;doorType:slidingDoor;doorAngle:0" visible="false" position="0.35 0 0" io3d-uuid="78fe46e2-07a8-45f5-be27-0e6b79f40b3b"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:2.3999999999999995;frontHasBase:true;backHasBase:true" visible="false" position="-3.4000000000000004 0 -7.3" rotation="0 180 0" io3d-uuid="2f487f1d-aa5b-4b1c-9148-ad80cc68f2e5"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.45;frontHasBase:true;backHasBase:true" visible="false" position="-1.1 0 -7.3" rotation="0 180 0" io3d-uuid="cb338590-1b8e-4ac7-9f91-63756aebcde1"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;l:1.35;frontHasBase:true;backHasBase:true" visible="false" position="-1.55 0 -7.55" rotation="0 90 0" io3d-uuid="46c53b9f-9016-41c4-b3b1-ef3c8ed740da"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.75;frontHasBase:true;backHasBase:true" visible="false" position="-1.45 0 -7.3" rotation="0 270 0" io3d-uuid="b85ef430-80d2-4c1c-a65a-13e3c004fc8b">
+          <a-entity io3d-door="material_leaf:doorLeaf-flush-white;material_handle:aluminium;material_threshold:basic-floor;l:1.75;w:0.1;doorType:doubleSwing;side:front;doorAngle:0" visible="false" io3d-uuid="b7ebc7ce-d1ca-479b-bda8-3cbb07847902"></a-entity>
+        </a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:2.05;frontHasBase:true;backHasBase:true" visible="false" position="-7.35 0 -9.35" rotation="0 270 0" io3d-uuid="5dff42d2-9825-427a-abd3-3faf681b802b"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:1.3000000000000016;frontHasBase:true;backHasBase:true" visible="false" position="-7.350000000000001 0 -7.549999999999997" io3d-uuid="0359b7d5-86fc-4395-a64c-fa68327375ef"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:0.2500000000000018;frontHasBase:true;backHasBase:true" visible="false" position="-4.450000000000008 0 -12.550000000000002" rotation="0 270 0" io3d-uuid="2f9ca12f-4869-45e2-b8bd-04774ff643a1"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:1.2499999999999893;frontHasBase:true;backHasBase:true" visible="false" position="-4.449999999999995 0 -12.200000000000001" rotation="0 180 0" io3d-uuid="3a33ae73-f4a4-4f51-a2e3-fe8c645cefe3"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:0.25000000000000533;frontHasBase:true;backHasBase:true" visible="false" position="-5.599999999999994 0 -12.549999999999997" rotation="0 270 0" io3d-uuid="bcbea76e-e76e-4177-b93e-ef96740b66ca"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.5878166846796261;frontHasBase:true;backHasBase:true" visible="false" position="-3.5 0 -8.9" rotation="0 115.89 0" io3d-uuid="b110bac5-f80e-4cd0-acd6-8b035f6b5063"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.48862613414601147;frontHasBase:true;backHasBase:true" visible="false" position="-3.712228840862743 0 -9.364976772929746" rotation="0 133.79 0" io3d-uuid="b798afc0-8458-45ff-a2a5-2884c291d115"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.48190988252744965;frontHasBase:true;backHasBase:true" visible="false" position="-3.9831994659049723 0 -9.667860411019134" rotation="0 153.05 0" io3d-uuid="cc33a2e6-3774-4603-b5af-e07aaa611a67"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.428432510375547;frontHasBase:true;backHasBase:true" visible="false" position="-4.33357368421272 0 -9.861455505844823" rotation="0 172.16 0" io3d-uuid="f1e2a8a3-602e-4d60-ac52-2f3badcf5dea"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.2976961534695243;frontHasBase:true;backHasBase:true" visible="false" position="-4.702589012736193 0 -9.918469955674908" rotation="0 184.89 0" io3d-uuid="00d035d9-d5ef-4c73-860e-506c9eb0d254"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.338425353537561;frontHasBase:true;backHasBase:true" visible="false" position="-4.95408127023226 0 -9.901171221447115" rotation="0 195.41 0" io3d-uuid="e3f9ee19-cbd1-42eb-be42-c7a0a894cbde"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.34052885971695745;frontHasBase:true;backHasBase:true" visible="false" position="-5.218835252779201 0 -9.837470969256312" rotation="0 210.78 0" io3d-uuid="23b1dcc7-0976-4624-9460-3ca6140e56af"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.25;l:0.46157741032053956;frontHasBase:true;backHasBase:true" visible="false" position="-5.468800985484129 0 -9.695183689449843" rotation="0 223.01 0" io3d-uuid="3a47ef23-54c6-4a31-a38d-714d7265139f"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.4;frontHasBase:true;backHasBase:true" visible="false" position="-8.2 0 -5.3" rotation="0 180 0" io3d-uuid="7157024b-6304-4dcf-8915-bc2a1a627940"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-1.95 0 -14" rotation="0 180 0" io3d-uuid="6e7e4016-a7f1-429a-8c5a-2e7cc5e1c572"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-6.35 0 -14" rotation="0 180 0" io3d-uuid="13a8e765-9530-4955-80fa-860aaae5a3cf"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:4.662979104231606;frontHasBase:true;backHasBase:true" visible="false" position="-11.662699965585693 0 1.7411455849944195" rotation="0 90 0" io3d-uuid="724b167b-56d0-4d14-9961-4e08c584155b"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.3;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-11.962699965585694 0 0.033936160584937924" rotation="0 450 0" io3d-uuid="7e24e9bb-764d-4426-8298-7c068f07eb37"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-6.1 0 0" rotation="0 450 0" io3d-uuid="79a30bf5-9386-4a1c-b508-0a01c599d4d3"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-11.6 0 -5.3" rotation="0 180 0" io3d-uuid="f800e29d-db1f-425a-b7f5-fb72fe230d32"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-11.6 0 -7.25" rotation="0 180 0" io3d-uuid="b3059531-29bd-4a81-9f1e-1926ce348cd9"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.35;l:0.35;frontHasBase:true;backHasBase:true" visible="false" position="-1.25 0 0.2" rotation="0 450 0" io3d-uuid="3543374a-6c69-4084-9c1f-55079309648d"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:77725308-eb20-4811-bfdd-e8da40a9bbfd" shadow="receive:false" position="-4.6289062 0 0.1171875" io3d-uuid="64a47f62-28a9-4054-91dc-f8b741967438"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:a87b255a-df44-4b83-804a-d02b9d9f9220" shadow="receive:false" position="-3.75 0 0.4296875" rotation="0 -90 0" io3d-uuid="c2c83a72-13e4-43d8-82a0-dcb11786fda3"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:77725308-eb20-4811-bfdd-e8da40a9bbfd" shadow="receive:false" position="-4.6679687 0 -0.4296875" rotation="0 180 0" io3d-uuid="c5dd9555-f445-4840-9b04-2e5f4f5876cc"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:a87b255a-df44-4b83-804a-d02b9d9f9220" shadow="receive:false" position="-3.7304687 0 -0.8203125" rotation="0 -90 0" io3d-uuid="98f46a24-c10f-4493-82e5-7ec74a5721e6"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:a87b255a-df44-4b83-804a-d02b9d9f9220" shadow="receive:false" position="-3.75 0 2.03125" rotation="0 -90 0" io3d-uuid="c8854e80-6db4-44b5-adbb-e6185b3f0be9"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:77725308-eb20-4811-bfdd-e8da40a9bbfd" shadow="receive:false" position="-4.6289062 0 2.4414063" rotation="0 180 0" io3d-uuid="6980a5c4-8768-433e-884d-8171b36ac38f"></a-entity>
+        <a-entity io3d-kitchen="material_tab:chrome;material_oven:oven_miele_60-60;material_chrome:chrome;material_cooktop:cooktop_westinghouse_60;material_counter:cabinet_paint_white;material_kitchen:cabinet_paint_white;material_microwave:microwave_samsung;l:5.55;highCabinetLeft:1;highCabinetRight:1;sinkType:none;extractorType:none;ovenType:none;cooktopType:none" visible="false" position="-2.7 0 2.65" rotation="0 90 0" io3d-uuid="3da8f3f7-f95b-4fe8-9202-cb8e4e9537fc"></a-entity>
+        <a-entity io3d-kitchen="material_tab:chrome;material_oven:oven_miele_60-60;material_chrome:chrome;material_cooktop:cooktop_westinghouse_60;material_counter:cabinet_paint_white;material_kitchen:cabinet_paint_white;material_microwave:microwave_samsung;w:0.7;l:2.6;barCounter:true;highCabinetLeft:0;wallCabinet:false;sinkType:none;extractorType:none;ovenType:none;cooktopType:none" visible="false" position="-0.55 0 -1.55" rotation="0 270 0" io3d-uuid="6180c352-9718-4dfb-8006-e20b17f937d4"></a-entity>
+        <a-entity class="io3d-group" position="2.1289063 0 -8.359375" io3d-uuid="400a2ca4-ae83-40c9-a7fc-fb4883bace8d">
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="0 0 1.5712256218325393e-9" io3d-uuid="8af6ae47-ca2d-4077-a797-3aee9cede8ee">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="9c6e3ad9-e264-47b6-b37b-d7fc8cf53e1a"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="1.6015625 0 1.5712254136657222e-9" io3d-uuid="a5ca0a84-33f0-493c-89bd-450be6c22cda">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="f0996df2-3485-4a9f-be37-4c9f366ade82"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="1.6015625 0 -0.8203124903953545" rotation="0 180 0" io3d-uuid="205e5023-d957-4333-b527-e3045fde3d8f">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="21fa1dec-14dd-4e33-8a23-db0fa8f83e8c"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="0 0 -0.8203124903953543" rotation="0 180 0" io3d-uuid="163a0251-35cb-4ea7-85f9-b9a0030a74b4">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="97eb36c1-7aee-47cd-8b2b-d8481422f0c8"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-2.220446049250313e-16 0 -1.3671874888241289" io3d-uuid="588cd233-2632-415c-8f8c-b3bb5a2b17f3"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="1.6015624999999998 0 -1.5039061903953546" io3d-uuid="31a969dd-46ed-404e-888b-3258fa731808"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="1.6601562999999997 0 0.625" rotation="0 200 0" io3d-uuid="62f616d5-3c7f-4285-9d77-d895336c60b1"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="0 0 0.6835937015712256" rotation="0 180 0" io3d-uuid="ea828bce-ceae-4bc8-baaa-3d5306e53327"></a-entity>
+        </a-entity>
+        <a-entity class="io3d-group" position="2.0898438 0 -12.0507812" io3d-uuid="c8f2c018-26bc-47f2-bec5-03f21a80a79e">
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="0 0 1.5712256218325393e-9" io3d-uuid="d5ef1f84-da10-417c-982c-cde85056ecef">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="eda4b974-836b-4bea-880c-09364abbd29f"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="1.6015625 0 1.5712254136657222e-9" io3d-uuid="89e53bfd-ba28-46f0-94a1-defdd6490804">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="023d276c-8462-4836-a9f2-dd2b2b78804e"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="1.6015625 0 -0.8203124903953545" rotation="0 180 0" io3d-uuid="37adbfee-0214-4bf0-8f07-55d3c9f20b92">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="dd763dd3-1ff8-4996-bda9-eb9a4478a230"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="0 0 -0.8203124903953543" rotation="0 180 0" io3d-uuid="1ddcf437-7d4a-454b-b2cc-418b2831c89d">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="7cedd47c-66f6-4b93-bb39-07af34ae43eb"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-2.220446049250313e-16 0 -1.3671874888241289" io3d-uuid="969e05db-6e0e-4ac9-bede-ddcd6f0bfcea"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="1.6015624999999998 0 -1.5039061903953546" io3d-uuid="2e29425c-5a57-490f-89b2-31e4e3595325"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="1.6601562999999997 0 0.625" rotation="0 200 0" io3d-uuid="4c6e3cdb-f9f6-49c0-8e50-745d16568235"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="0 0 0.6835937015712256" rotation="0 180 0" io3d-uuid="9068269c-67b2-49fa-b20e-730492e04ac1"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="2.16796875 0 -15.000000048428774" rotation="0 180 0" io3d-uuid="cb303408-b073-4abb-921b-8dd8f535fbe3"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="3.8281250499999997 0 -15.05859375" rotation="0 200 0" io3d-uuid="7c039f10-ed31-4167-9b66-d24afa095fa4"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="3.76953125 0 -17.187499940395355" io3d-uuid="a619fa6f-c172-4765-85a6-d921f57c9316"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="2.16796875 0 -17.05078123882413" io3d-uuid="3c3176db-1b38-46c8-afff-cd1407285e39"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="2.16796875 0 -16.503906240395356" rotation="0 180 0" io3d-uuid="812fda73-97a9-4d70-9e60-64707156d2e9">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="8eaed9c0-6f0b-48d1-8b91-a209e3969779"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="3.76953125 0 -16.503906240395356" rotation="0 180 0" io3d-uuid="378149be-b771-4db9-979b-dfafb0f6d6eb">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="a8567803-7575-4e62-8c8e-b466119bf10b"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="3.76953125 0 -15.683593748428775" io3d-uuid="453cd78e-bd37-4947-9292-85af3e2716e0">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="c4ee3a59-67b3-4a7c-b8fb-fdd9bd291318"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="2.16796875 0 -15.683593748428775" io3d-uuid="80a599fa-5ee7-4d61-ab94-ba2d2c0bf92c">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="db99901f-0cb4-4c71-9fbd-63049bef2c4f"></a-entity>
+        </a-entity>
+        <a-entity class="io3d-group" position="-0.0195312 0 -15.703125" rotation="0 90 0" io3d-uuid="d1c49e0e-8e88-457b-a0e9-e24c4ece3c5e">
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="0 0 1.5712256218325393e-9" io3d-uuid="dde132f4-2073-4067-be4b-150ee32bc34f">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="39864f68-e575-4cd1-9386-9ba4e31c10b5"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="1.6015625 0 1.5712254136657222e-9" io3d-uuid="a16f2db3-10d5-45b7-bae7-87d3be993cdc">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="a1ca6c88-771f-4e2e-ae4d-7549ffadac0b"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="1.6015625 0 -0.8203124903953545" rotation="0 180 0" io3d-uuid="0e3a3f23-42ba-4604-8685-2c307c82f7eb">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="b8f728a4-c731-4200-85ba-bff57963b625"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="0 0 -0.8203124903953543" rotation="0 180 0" io3d-uuid="cfbf75f0-635a-4ad2-8e87-698cd15e3b0d">
+            <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="a3c62e43-b3be-49c2-b3b6-6ce546f427a1"></a-entity>
+          </a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-2.220446049250313e-16 0 -1.3671874888241289" io3d-uuid="f6117ccf-d90b-42bc-87a1-4737bcf2aa12"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="1.6015624999999998 0 -1.5039061903953546" io3d-uuid="4f6b53f2-51f4-452d-94c0-1f5e557292d9"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="1.6601562999999997 0 0.625" rotation="0 200 0" io3d-uuid="482fda50-c6db-4435-b8a5-757a131da117"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="0 0 0.6835937015712256" rotation="0 180 0" io3d-uuid="47517ec7-d317-495d-bab3-c15b3dc6389e"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:8b5f7079-b42b-4689-9b37-3dd2946bb651" shadow="receive:false" position="-11.3476563 3.552713678800501e-15 -14.8046875" rotation="0 270 0" io3d-uuid="a93d3ff3-1527-4f2c-bc6f-e582760a0c4e"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:eb38e439-9068-40e9-bd2d-a997f2992df0" dynamic-body shadow="receive:false" position="-12.03125 3.552713678800501e-15 -13.90625" rotation="0 138 0" io3d-uuid="2ee07ab2-ff82-4790-ae6e-dcbfeefd1d0d"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:eb38e439-9068-40e9-bd2d-a997f2992df0" dynamic-body shadow="receive:false" position="-11.953125 3.552713678800501e-15 -15.7617187" rotation="0 34 0" io3d-uuid="a954d3af-b5fc-455a-94e3-f5fcdb27347a"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:eb38e439-9068-40e9-bd2d-a997f2992df0" dynamic-body shadow="receive:false" position="-10.1171875 3.552713678800501e-15 -15.859375" rotation="0 218 0" io3d-uuid="56ace0ce-1489-4f6b-b48b-75e36399c522"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:8b5f7079-b42b-4689-9b37-3dd2946bb651" shadow="receive:false" position="-10.87890625 3.552713678800501e-15 -16.60156255" rotation="0 180 0" io3d-uuid="499aa678-0e55-4dae-9cb4-e59c14d28876"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:eb38e439-9068-40e9-bd2d-a997f2992df0" dynamic-body shadow="receive:false" position="-11.8359375 3.552713678800501e-15 -17.2460937" rotation="0 63 0" io3d-uuid="f87d9f6d-d672-4160-850c-8c3fa33c00ab"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:eb38e439-9068-40e9-bd2d-a997f2992df0" dynamic-body shadow="receive:false" position="-9.8632812 3.552713678800501e-15 -17.5" rotation="0 311 0" io3d-uuid="a7dff0c4-a78b-4713-bc88-2babf4e40422"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:eb38e439-9068-40e9-bd2d-a997f2992df0" dynamic-body shadow="receive:false" position="-10.2539062 3.552713678800501e-15 -14.6289062" rotation="0 270 0" io3d-uuid="f154282d-9f08-47fe-ba94-b87b11e21e65"></a-entity>
+        <a-entity class="io3d-group" position="-10.189397126332159 0 -7.13035553099259" io3d-uuid="5db74f95-13e6-434f-b0f3-f27ccaccef15"></a-entity>
+        <a-entity class="io3d-group" position="-14.54529150858852 0 -8.047551786210963" io3d-uuid="84b29fa5-8884-4eec-ae0e-ba72ba1b18cc"></a-entity>
+        <a-entity class="io3d-group" position="-14.211993915908248 0 -5.34253424652574" io3d-uuid="1a052818-0fa2-4c10-8ff0-7fbf2fdb670f"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-11.2304687 0 -8.8476562" io3d-uuid="a926fe03-c83d-4e17-b7d1-2fde8e733bc4"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-3.2421875484287743 0 -15.703125" rotation="0 270 0" io3d-uuid="a7bf8731-b8df-4c35-b242-0d44a93f3d3a"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-3.3007812499999996 0 -17.3632813" rotation="0 290 0" io3d-uuid="2cd4f97e-e5d1-4945-accf-26a815068852"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-5.429687440395354 0 -17.3046875" rotation="0 90 0" io3d-uuid="90f5aafa-ad69-4962-9676-2fb626ebce16"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-5.292968738824129 0 -15.703125" rotation="0 90 0" io3d-uuid="0fff3f34-0e03-4e2d-b7ba-7b86ac74b44b"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="-4.746093740395354 0 -15.703125" rotation="0 270 0" io3d-uuid="6c6fb9be-a38d-4261-b629-9e874db261fc">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="5a93b154-7cbf-4f8d-b768-917e83186967"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="-4.746093740395354 0 -17.3046875" rotation="0 270 0" io3d-uuid="12caeddd-fff6-493f-abd9-04cb696bfd3b">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="6fb067dd-796f-47a8-a9b7-e25a3d3021a9"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="-3.925781248428774 0 -17.3046875" rotation="0 90 0" io3d-uuid="aa07fdb1-3034-4cd6-9fa1-ae1552e695c1">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="b04424a5-221e-4b2e-856e-fffa8a5816d3"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:429399fd-b8c0-49a9-9eb9-3c271aab08bb" shadow="receive:false" position="-3.925781248428774 0 -15.703125" rotation="0 90 0" io3d-uuid="4eac975f-40ce-40fe-b8c5-2fa96c995825">
+          <a-entity io3d-interior="" io3d-furniture="id:fe59ff30-9ac9-446f-957c-ccf043d20e32" shadow="receive:false" position="0.0195313 0.75 -0.0390625" io3d-uuid="e86b6a0d-d278-45ff-bb64-e86d99d5bd04"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-10.4882812 0 -7.0898437" rotation="0 270 0" io3d-uuid="8d0025b2-d5b5-4795-bb5c-9dc3268abc1f"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-10.46875 0 -5.859375" rotation="0 270 0" io3d-uuid="b3fdbe8d-9fa7-4265-b420-b99ad6a34d22"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-12.1484375 0 -6.5234375" rotation="0 90 0" io3d-uuid="99a2ee06-592f-494f-a571-264d4471f192"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:ababafd3-69fe-45cc-a98a-50c60a8018aa" dynamic-body shadow="receive:false" position="-11.2695312 0 -4.140625" rotation="0 180 0" io3d-uuid="a0972f10-99a7-4aac-88ab-44a6009a3e76"></a-entity>
+        <a-entity class="io3d-group" position="-9.825984202139482 0 -0.44337036817234954" io3d-uuid="a796719f-8935-4df7-ab28-bb4e51a08152"></a-entity>
+        <a-entity class="io3d-group" position="-9.84375 0 -0.625" rotation="0 90 0" io3d-uuid="a97f67ea-61b7-4e24-982f-63744152f6a9">
+          <a-entity io3d-interior="" io3d-furniture="id:08532be6-ca87-4533-ba72-1cbcd039520e" shadow="receive:false" io3d-uuid="60023e50-2eea-4718-a923-21d34eaee2f6"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.9374999999999999 0 -0.59" rotation="0 -2 0" io3d-uuid="18d71000-74ab-4016-baf2-444517653a3e"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.3124999999999999 0 -0.59" io3d-uuid="0f1c3a74-180e-48cf-be10-352d19b1e079"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.3125000000000001 0 -0.59" rotation="0 1 0" io3d-uuid="1fc4f1af-20d7-4ae8-9cc0-aa62cade232d"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.9375000000000001 0 -0.59" rotation="0 -4 0" io3d-uuid="056ecf02-a42e-4139-b642-c590e0d2ef97"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.9374999999999999 0 0.59" rotation="0 177 0" io3d-uuid="decbc011-aeb3-4adf-8dec-b6c1d77c90a7"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.3124999999999999 0 0.59" rotation="0 176 0" io3d-uuid="ce9e9aa4-733f-4084-b59e-afeb17ef9ead"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.3125000000000001 0 0.59" rotation="0 176 0" io3d-uuid="1c33e93f-6a4a-41c3-92de-53e559b9a726"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.9375000000000001 0 0.59" rotation="0 182 0" io3d-uuid="e5c0a295-613a-490b-9351-4ecad2f07dc6"></a-entity>
+        </a-entity>
+        <a-entity class="io3d-group" position="-9.84375 0 3.7304688" rotation="0 90 0" io3d-uuid="696ccc4d-93f2-4116-b792-31ad032063ee">
+          <a-entity io3d-interior="" io3d-furniture="id:08532be6-ca87-4533-ba72-1cbcd039520e" shadow="receive:false" io3d-uuid="83a4cc84-75b0-416f-aab9-d1673dc83642"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.9374999999999999 0 -0.59" rotation="0 -2 0" io3d-uuid="03248c53-648c-495b-9212-a150ae60483e"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.3124999999999999 0 -0.59" io3d-uuid="6838a47b-7451-4683-b852-f16938912ee5"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.3125000000000001 0 -0.59" rotation="0 1 0" io3d-uuid="5a7be11a-837a-42a0-b513-ebf89848962f"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.9375000000000001 0 -0.59" rotation="0 -4 0" io3d-uuid="ca4d8513-f741-41df-8b75-88aea69d1b64"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.9374999999999999 0 0.59" rotation="0 177 0" io3d-uuid="69710904-8df7-46c5-adf8-9703f171069d"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.3124999999999999 0 0.59" rotation="0 176 0" io3d-uuid="6a68ce1a-37f5-4e98-b73f-0f288da868f4"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.3125000000000001 0 0.59" rotation="0 176 0" io3d-uuid="9ab5e032-4e60-4b15-a447-152a4f58295c"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.9375000000000001 0 0.59" rotation="0 182 0" io3d-uuid="7f59c2f7-da95-4286-bbe3-f4c1e7d94c5f"></a-entity>
+        </a-entity>
+        <a-entity class="io3d-group" position="-15.26556185015139 0 1.4886858022840002" io3d-uuid="fc0c7ca2-89d6-437d-b9fa-641c10506b5e"></a-entity>
+        <a-entity class="io3d-group" position="-18.4269485168393 0 0.9468057649613859" io3d-uuid="a0f1392d-d775-4b71-bc7b-66fe162fad7b"></a-entity>
+        <a-entity io3d-wall="material_top:wall_top;material_back:basic-wall;material_front:basic-wall;w:0.1;l:4.062699965585695;frontHasBase:true;backHasBase:true" visible="false" position="-7.5 0 1.55" rotation="0 180 0" io3d-uuid="e351c748-6169-42b8-a479-beaf59db7201">
+          <a-entity io3d-door="material_leaf:doorLeaf-glass;material_handle:aluminium;material_threshold:basic-floor;l:1.6;w:0.1;frameLength:0;doorType:slidingDoor;doorType:opening" visible="false" position="0.45 0 0" io3d-uuid="5e975886-b154-48df-bb1d-1a25f03b8ccf"></a-entity>
+          <a-entity io3d-door="material_leaf:doorLeaf-glass;material_handle:aluminium;material_threshold:basic-floor;l:1.6;w:0.1;frameLength:0;doorType:slidingDoor;hinge:left;doorType:opening" visible="false" position="2.05 0 0" io3d-uuid="347566cc-d27a-4294-8ef4-d4d79ccb237d"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:093fa978-e0f3-4769-89a5-8091a88bcf83" shadow="receive:false" position="2.5 0 -5.15625" rotation="0 349 0" io3d-uuid="40bdbd05-a689-46d3-929d-74b93969828a"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:0ed6f6b2-5136-4c30-8e48-ebced500ee0f" shadow="receive:false" position="2.5390625 0 -5.1367187" rotation="0 349 0" io3d-uuid="c05ba221-c191-40a9-b707-7c37687c95a6"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="3.1445313 0 -4.5507812" rotation="0 228 0" io3d-uuid="086fe4f9-8940-495c-a3eb-433f3af11286"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="3.1640625 0 -5.7226562" rotation="0 321 0" io3d-uuid="9c107a35-1834-4ec1-bbc8-2074479ed016"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="1.953125 0 -5.703125" rotation="0 44 0" io3d-uuid="e92ef541-875f-4c8c-9d7e-0af52fcf3d62"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="1.953125 0 -4.53125" rotation="0 133 0" io3d-uuid="ea79e7bc-fa34-4dfa-90a0-a1ad468748c3"></a-entity>
+        <a-entity class="io3d-group" position="2.1484375 0 2.8125" rotation="0 90 0" io3d-uuid="a8276a3e-886f-4e06-b2c2-2ff22cab0f6a">
+          <a-entity io3d-interior="" io3d-furniture="id:08532be6-ca87-4533-ba72-1cbcd039520e" shadow="receive:false" io3d-uuid="8263526d-2e18-4002-b0dd-c82cfd0a2582"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.9374999999999999 0 -0.59" rotation="0 -2 0" io3d-uuid="4ab5b594-0df4-47bf-baaf-9d400106b873"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.3124999999999999 0 -0.59" io3d-uuid="45a94dd7-cd8d-446a-ab6d-9afa53b25ff0"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.3125000000000001 0 -0.59" rotation="0 1 0" io3d-uuid="db401da2-e942-472d-81be-1523b334e235"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.9375000000000001 0 -0.59" rotation="0 -4 0" io3d-uuid="050a488f-4716-4d3a-b36b-fc8e143f2c49"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.9374999999999999 0 0.59" rotation="0 177 0" io3d-uuid="470209bc-3a31-4180-a619-c5fc10d3451e"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-0.3124999999999999 0 0.59" rotation="0 176 0" io3d-uuid="e49d1dcf-5d28-4f52-9e3f-a001c1659916"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.3125000000000001 0 0.59" rotation="0 176 0" io3d-uuid="34bd8650-a604-4f54-bc7f-7837de11b295"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="0.9375000000000001 0 0.59" rotation="0 182 0" io3d-uuid="d9e796fe-6d0e-458b-a121-edc062026c30"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:3d010f26-4737-4761-bce1-f335eba59b89" shadow="receive:false" position="-11.2304687 0 -7.5976562" rotation="0 270 0" io3d-uuid="212a1e35-2f6f-438c-9cd8-9f70c7bae037"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:3d010f26-4737-4761-bce1-f335eba59b89" shadow="receive:false" position="-11.2304687 0 -5.390625" rotation="0 270 0" io3d-uuid="e859acb8-9ac0-41e3-be40-e738a4b69bd4"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:3d010f26-4737-4761-bce1-f335eba59b89" shadow="receive:false" position="-5.4882812 0 -11.1523437" io3d-uuid="87a969a3-11b7-488c-ba17-bd3212012be8"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:3d010f26-4737-4761-bce1-f335eba59b89" shadow="receive:false" position="-3.28125 0 -11.1523437" io3d-uuid="c3d2366e-3f2a-4ce9-aa23-6573c4f9aeaf"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="2.7775000000000003 0 -1.2890625" rotation="0 272 0" io3d-uuid="73e333cc-bd9d-496b-9075-a1f85c7cee83"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="1.5975000000000001 0 -1.2890625000000002" rotation="0 86 0" io3d-uuid="e7330bbf-c67b-41cd-a9c1-b4c702956e2c"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:08532be6-ca87-4533-ba72-1cbcd039520e" shadow="receive:false" position="2.1875 0 -0.3515625" rotation="0 90 0" io3d-uuid="af3f817e-98df-4a8e-bfe3-0e58aea96b2d"></a-entity>
+        <a-entity class="io3d-group" position="1.5974999999999997 0 0.5859374999999998" io3d-uuid="267ccc0a-73b8-4c58-8732-8cd72fd6f2f5">
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="3.337860077223809e-8 0 -2.220446049250313e-16" rotation="0 88 0" io3d-uuid="c12eb891-1003-482f-a16d-e1fc6a4148bf"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="3.337860099428269e-8 0 -0.6250000000000002" rotation="0 90 0" io3d-uuid="c8b2da7b-63ef-4040-919e-57aed13a01de"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="3.33786012163273e-8 0 -1.2500000000000002" rotation="0 91 0" io3d-uuid="731b8402-c5e8-4215-900c-ae9291dd82ba"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="1.180000033378601 0 -0.625" rotation="0 266 0" io3d-uuid="155ec222-2049-4292-89c5-26cd771a2c09"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="1.180000033378601 0 -1.25" rotation="0 266 0" io3d-uuid="169db6a8-9acb-4f77-85a6-036b4f86266b"></a-entity>
+          <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="1.180000033378601 0 0" rotation="0 267 0" io3d-uuid="dd38ce8c-e16d-43e0-9948-b7a707029890"></a-entity>
+        </a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-5.390624949999999 0 -10.6640625" rotation="0 180 0" io3d-uuid="b12d0335-bdf7-4d14-a04e-16079a60e72d"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-6.015624949999999 0 -10.6640625" rotation="0 180 0" io3d-uuid="b6cfc98b-9315-40af-900f-6a5c712c04d2"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-6.015624949999999 0 -11.6992187" io3d-uuid="29d934fe-b12d-4e9e-8969-e38997c5b0d4"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-5.390624949999999 0 -11.6992187" io3d-uuid="f8a50026-25fb-4282-b882-68a06812eda7"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-4.746093699999999 0 -11.6992187" io3d-uuid="2d29707f-f12f-4886-833a-d6b16e28f1b8"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-4.746093699999999 0 -10.6640625" rotation="0 180 0" io3d-uuid="0a5d71cc-6f83-4097-be9d-0804ee09bcb9"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-3.47656245 0 -10.6640625" rotation="0 180 0" io3d-uuid="096aae61-e672-4e8d-ac65-410bdffd9efb"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-4.101562449999999 0 -10.6640625" rotation="0 180 0" io3d-uuid="3f7ae55e-e3bc-4b28-9c18-dfc1987a7ca8"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-4.101562449999999 0 -11.6992187" io3d-uuid="e0037552-6087-472d-9cce-2db24d43cb5c"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-3.47656245 0 -11.6992187" io3d-uuid="3d9df8ec-3a3a-4ef1-b1c4-3852b04f500d"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-2.8320312 0 -11.6992187" io3d-uuid="c1e99a68-1b4f-4989-9d9f-a6f1a1251f14"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:6fcb5e77-b101-4c87-af2b-66f379e5e732" dynamic-body shadow="receive:false" position="-2.8320312 0 -10.6640625" rotation="0 180 0" io3d-uuid="267a40e7-5de6-40c6-b2f8-2a17317961ad"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="-0.17578125 0 6.093749940395354" rotation="0 17 0" io3d-uuid="f4064178-4a22-413b-acb1-03af8a6e7988"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="1.6015625 0 6.1328125" rotation="0 351 0" io3d-uuid="32543b36-4f7b-4da1-9cfc-447c416f773c"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:08532be6-ca87-4533-ba72-1cbcd039520e" shadow="receive:false" position="0.6640625499999997 0 6.699218740395354" io3d-uuid="9077fd34-a6f0-43b6-9ab3-27b689c3313a"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="4.00390625 0 6.074218740395354" rotation="0 351 0" io3d-uuid="a2b62527-14df-440f-aed7-16c93417b64a"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:99d45ddd-150a-4674-8e9e-1e4d61eca5ee" dynamic-body shadow="receive:false" position="2.4023438 0 6.09375" rotation="0 17 0" io3d-uuid="d5e91de1-7f72-4533-985c-d40ccc188f0a"></a-entity>
+        <a-entity io3d-interior="" io3d-furniture="id:08532be6-ca87-4533-ba72-1cbcd039520e" shadow="receive:false" position="3.203125 0 6.6992188" io3d-uuid="cf625adf-5732-4e4f-a66b-7728844fd7a2"></a-entity>
+        <a-entity io3d-railing="l:0.36" visible="false" position="-3.5 0 -8.9" rotation="0 270 0" io3d-uuid="9d85b399-9043-4455-9a5c-272d9d68d66d"></a-entity>
+        <a-entity io3d-polyfloor="material_top:basic-floor;material_side:basic-wall;material_ceiling:basic-ceiling;polygon:-2.7,-0.15,-2.7,-0.05,2.9,-0.05,2.9,-0.15" visible="false" position="-4.288 0 -5.372" scale="6.12 0 9" io3d-uuid="bbd3817e-cd6d-47f0-9ad8-a626a2d2a81a"></a-entity>
+        <a-entity io3d-polyfloor="material_top:basic-floor;material_side:basic-wall;material_ceiling:basic-ceiling;polygon:-2.7,-0.15,-2.7,-0.05,2.9,-0.05,2.9,-0.15" visible="false" position="-4.288 2.4 -5.372" scale="6.12 0 9" io3d-uuid="bbd3817e-cd6d-47f0-9ad8-a626a2d2a81a"></a-entity>
+      </a-entity>
+    </a-scene>
+<script>
+function parseDataString(string = '') {
+  if (typeof string === 'object') {
+    return string
+  }
+  return string.split(';').reduce((obj, subStr) => {
+    const pair = subStr.split(':')
+    if (pair.length > 1) {
+      obj[pair[0].trim()] = pair[1].trim()
+    }
+  }, {})
+}
+// io3d.scene
+//   .getAframeElements('dcb1e463-4f19-437f-aa20-56118f4ed119')
+//   .then(elems => {
+const scene = document.querySelector('a-scene')
+const office = document.querySelector('#office_model')
+const office_parts = office.querySelectorAll('[visible=false]')
+const wallContainer = document.querySelector('#wall-container')
+const walls = document.querySelectorAll('[io3d-wall]')
+const doors = document.querySelectorAll('[io3d-doors]')
+const furniture = document.querySelectorAll('[io3d-furniture]')
+const plane = document.querySelector('[plane]')
+const player = document.querySelector('[camera]')
+
+// AFRAME.registerComponent('splat', {
+//   init: function () {
+//     console.log('Hello, World!');
+//   }
+// });
+
+// const littleBoxes = player.addEventListener('collide', function(e) {
+//   console.log('collition with wall', e)
+//   const target = e.detail.body
+//   const splat = document.createElement('a-sphere')
+//   const position = target.position
+//   // console.log(position)
+//   // splat.setAttribute('color', 'red')
+//   // splat.setAttribute('scale', { x: 1, y: 1, z: 1 })
+//   // splat.setAttribute('position', position)
+//   // //splat.setAttribute('geometry', 'red')
+//   // //target.el.appendChild(splat)
+//   // office.appendChild(splat)
+// })
+Array.prototype.map.call(office_parts, (part, index) => {
+  part.setAttribute('visible', 'true')
+})
+Array.prototype.map.call(walls, wall => {
+  //console.log(wall)f
+  // const box = document.createElement('a-box')
+  // const dimensions = parseDataString(wall.getAttribute('io3d-wall'))
+  // console.log(dimensions)
+  // box.setAttribute('width', dimensions.l)
+  // box.setAttribute('height', dimensions.h)
+  // box.setAttribute('depth', dimensions.w)
+  // box.setAttribute('position', wall.getAttribute('position'))
+  // box.setAttribute('rotation', wall.getAttribute('rotation'))
+  // box.setAttribute('visible', 'false')
+  // box.setAttribute('static-body', '')
+  // // console.log(box)
+  // wall.appendChild(box)
+  // wall.setAttribute('static-body', '')
+})
+Array.prototype.map.call(furniture, (furn, index) => {
+  //furn.setAttribute('static-body', '')
+})
+scene.addEventListener('click', shoot)
+function shoot(event) {
+  const { position, rotation } = player.object3D
+  const splat = document.createElement('a-sphere')
+  splat.setAttribute('color', 'red')
+  splat.setAttribute('geometry', 'primitive: sphere; radius: .1')
+  splat.setAttribute('forward', 'speed:0.5')
+  // setTimeout(() => {
+  //   splat.parentNode.removeChild(splat)
+  // }, 30000)
+  //splat.setAttribute('dynamic-body', '')
+  splat.setAttribute('position', getInitialBulletPosition(player))
+  splat.setAttribute('rotation', getInitialBulletRotation(player))
+
+  var matrixWorld = player.object3D.matrixWorld
+  var shotDirection = new THREE.Vector3()
+  shotDirection.setFromMatrixPosition(matrixWorld)
+
+  splat.addEventListener('data-loaded', function() {
+    var shotPosition = splat.getAttribute('position')
+    splat.body.applyImpulse(
+      /* impulse */
+      new CANNON.Vec3().copy(shotDirection),
+      /* world position */
+      new CANNON.Vec3().copy(shotPosition)
+    )
+  })
+  scene.appendChild(splat)
+  //spalt.body.applyLocalImpulse(20, new THREE.Vector3())
+  splat.addEventListener('collide', function(e) {
+    if (e.detail.body.el.attributes['static-body']) {
+      console.log('static collide', e.detail.body.el)
+    }
+    if (e.detail.body.el.attributes['dynamic-body']) {
+      console.log('dynamic collide', e.detail.body.el)
+      splat.removeAttribute('forward')
+      splat.removeAttribute('dynamic-body')
+      splat.setAttribute('static-body', '')
+    }
+  })
+}
+function getInitialBulletPosition(spawnerEl) {
+  var position = spawnerEl.getAttribute('position')
+  var worldPos = new THREE.Vector3()
+  worldPos.setFromMatrixPosition(spawnerEl.object3D.matrixWorld)
+  return worldPos
+}
+function getInitialBulletRotation(spawnerEl) {
+  var worldDirection = new THREE.Vector3()
+
+  spawnerEl.object3D.getWorldDirection(worldDirection)
+  worldDirection.multiplyScalar(-1)
+  vec3RadToDeg(worldDirection)
+  return worldDirection
+}
+function vec3RadToDeg(rad) {
+  rad.set(rad.y * 90, -90 + -THREE.Math.radToDeg(Math.atan2(rad.z, rad.x)), 0)
+}
+
+AFRAME.registerComponent('forward', {
+  schema: {
+    speed: { default: 0.1 }
+  },
+
+  init: function() {
+    var worldDirection = new THREE.Vector3()
+    this.tickCount = 0
+    this.el.object3D.getWorldDirection(worldDirection)
+    worldDirection.multiplyScalar(-1)
+
+    this.worldDirection = worldDirection
+    //console.error(this.worldDirection)
+    // this.el.setAttribute(
+    //   'dynamic-body',
+    //   'shape: sphere; sphereRadius: .1, mass: 5'
+    // )
+  },
+
+  tick: function() {
+    var el = this.el
+    this.tickCount++
+    // if (this.tickCount === 5) {
+    //   this.el.setAttribute(
+    //     'dynamic-body',
+    //     'shape: sphere; sphereRadius: .1, mass: 5'
+    //   )
+    //   this.el.body.applyLocalImpulse(20, new THREE.Vector3())
+    // }
+    var currentPosition = el.getAttribute('position')
+    var newPosition = this.worldDirection
+      .clone()
+      .multiplyScalar(this.data.speed)
+      .add(currentPosition)
+    el.setAttribute('position', newPosition)
+  }
+})
+//document.querySelector('a-scene').appendChild(scene)
+//})
+</script>
+  </body>
+</html>
