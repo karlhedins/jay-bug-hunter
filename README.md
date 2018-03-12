@@ -16,6 +16,14 @@ yarn && yarn easyrtc-install
 npm install && npm run easyrtc-install
 ```
 
+Build the server:
+
+```bash
+yarn build
+# or 
+npm run build
+```
+
 To run the server:
 
 ```bash
